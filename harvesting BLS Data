@@ -1,0 +1,9 @@
+import matplotlib as pyplot
+import pandas as pd
+import numpy as np
+import math
+import scipy
+import requests
+import urllib.request
+import BeautifulSoup as bs
+
