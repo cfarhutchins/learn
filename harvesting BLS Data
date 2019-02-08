@@ -1,9 +1,24 @@
-import matplotlib as pyplot
-import pandas as pd
-import numpy as np
-import math
-import scipy
 import requests
-import urllib.request
-import BeautifulSoup as bs
+from bs4 import BeautifulSoup
 
+url = 'https://www.bls.gov/regions/southwest/news-release/occupationalemploymentandwages_austin.htm#TableA'
+
+for page in range(10):
+
+    print('---', page, '---')
+
+    r = requests.get(url + str(page))
+
+    soup = BeautifulSoup(r.content, "html.parser")
+
+    # String substitution for HTML
+    for link in soup.find_all("a"):
+        print("<a href='>%s'>%s</a>" % (link.get("href"), link.text))
+
+    # Fetch and print general data from title class
+    general_data = soup.find_all('div', {'class' : 'title'})
+
+    for item in general_data:
+        print(item.contents[0].text)
+        print(item.contents[1].text.replace('.',''))
+        print(item.contents[2].text)
